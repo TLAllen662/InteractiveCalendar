@@ -1,5 +1,5 @@
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { cleanup, render, screen, within } from '@testing-library/react'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { MemoryRouter } from 'react-router-dom'
 import App from './App.jsx'
@@ -15,11 +15,6 @@ function renderApp(path = '/') {
 
 beforeEach(() => {
   localStorage.clear()
-})
-
-afterEach(() => {
-  cleanup()
-  vi.restoreAllMocks()
 })
 
 describe('shared task context', () => {
@@ -51,6 +46,22 @@ describe('shared task context', () => {
 })
 
 describe('calendar tasks', () => {
+  it('rejects whitespace-only tasks and accepts a valid task afterward', async () => {
+    const user = userEvent.setup()
+    renderApp()
+    const title = screen.getByLabelText('Task')
+    await user.type(title, '   ')
+    await user.click(screen.getByRole('button', { name: 'Add task' }))
+    expect(screen.getByRole('alert')).toHaveTextContent('Enter a task and a valid date.')
+    expect(localStorage.getItem(TASKS_KEY)).toBeNull()
+
+    await user.clear(title)
+    await user.type(title, 'Study group')
+    await user.click(screen.getByRole('button', { name: 'Add task' }))
+    expect(screen.getByRole('checkbox', { name: 'Study group' })).toBeInTheDocument()
+    expect(screen.queryByRole('alert')).not.toBeInTheDocument()
+  })
+
   it('creates, completes, edits, persists, and deletes a task', async () => {
     const user = userEvent.setup()
     const view = renderApp()

@@ -1,5 +1,5 @@
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { act, cleanup, render, screen, waitFor } from '@testing-library/react'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { act, render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import GoogleCalendarEvents from './components/GoogleCalendarEvents.jsx'
 import { CALENDAR_SCOPE, listCalendarEvents } from './services/googleCalendar.js'
@@ -17,13 +17,6 @@ function response(data, status = 200) {
 
 beforeEach(() => {
   vi.stubEnv('VITE_GOOGLE_CLIENT_ID', 'test-client-id')
-})
-
-afterEach(() => {
-  cleanup()
-  vi.unstubAllEnvs()
-  vi.unstubAllGlobals()
-  vi.restoreAllMocks()
 })
 
 describe('Google Calendar service', () => {

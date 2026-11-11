@@ -10,7 +10,8 @@ npm run dev
 ```
 
 Run `npm run build` for a production build, `npm run lint` to check the code,
-and `npm test` for the utility and interaction tests.
+and `npm test` for the Vitest utility and React interaction tests. The Google
+Calendar tests use mocked responses and do not require Google credentials.
 
 For browser-based responsive checks, run `npx playwright install chromium` once,
 then `npm run test:responsive`. The checks cover mobile, tablet, and desktop

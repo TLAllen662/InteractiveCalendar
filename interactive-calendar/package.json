@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "oxlint",
-    "test": "node --test src/utils/dates.test.js src/utils/taskStorage.test.js && vitest run src/App.test.jsx src/GoogleCalendar.test.jsx --environment jsdom",
+    "test": "vitest run",
     "test:responsive": "playwright test",
     "preview": "vite preview"
   },
