@@ -105,3 +105,47 @@ describe('calendar tasks', () => {
     expect(within(screen.getByRole('main')).getByRole('heading', { name: 'Page not found' })).toBeTruthy()
   })
 })
+
+describe('routing', () => {
+  it.each([
+    ['/', 'Your calendar', 'Calendar'],
+    ['/courses', 'Courses', 'Courses'],
+    ['/assignments', 'Assignments', 'Assignments'],
+    ['/settings', 'Settings', 'Settings'],
+  ])('renders %s directly and marks its navigation link active', (path, heading, link) => {
+    renderApp(path)
+    expect(within(screen.getByRole('main')).getByRole('heading', { name: heading })).toBeTruthy()
+    expect(within(screen.getByRole('navigation')).getByRole('link', { name: link }).getAttribute('aria-current')).toBe('page')
+  })
+
+  it('navigates between all views and returns home from an unknown URL', async () => {
+    const user = userEvent.setup()
+    const view = renderApp()
+    const nav = within(screen.getByRole('navigation'))
+    for (const name of ['Courses', 'Assignments', 'Settings', 'Calendar']) {
+      await user.click(nav.getByRole('link', { name }))
+      const heading = name === 'Calendar' ? 'Your calendar' : name
+      expect(within(screen.getByRole('main')).getByRole('heading', { name: heading })).toBeTruthy()
+      expect(nav.getByRole('link', { name }).getAttribute('aria-current')).toBe('page')
+    }
+
+    view.unmount()
+    renderApp('/unknown')
+    await user.click(screen.getByRole('link', { name: 'Return home' }))
+    expect(screen.getByRole('heading', { name: 'Your calendar' })).toBeTruthy()
+  })
+
+  it('retains unsaved tasks and their warning when navigating', async () => {
+    vi.spyOn(console, 'error').mockImplementation(() => {})
+    vi.spyOn(Storage.prototype, 'setItem').mockImplementation(() => { throw new Error('Storage full') })
+    const user = userEvent.setup()
+    renderApp()
+    await user.type(screen.getByLabelText('Task'), 'Unsaved task')
+    await user.click(screen.getByRole('button', { name: 'Add task' }))
+    await user.click(screen.getByRole('link', { name: 'Courses' }))
+    expect(screen.getByRole('alert').textContent).toContain('could not be saved')
+    await user.click(screen.getByRole('link', { name: 'Calendar' }))
+    expect(screen.getByLabelText('Unsaved task')).toBeTruthy()
+    expect(screen.getByRole('alert').textContent).toContain('could not be saved')
+  })
+})

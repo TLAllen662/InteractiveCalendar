@@ -20,6 +20,13 @@ to the current day. Tasks are stored in this browser's local storage; they do no
 sync across browsers or devices and can be lost if browser data is cleared. If
 saved data cannot be read, editing is disabled to avoid overwriting it.
 
+## Routes
+
+- `/`: interactive calendar and tasks.
+- `/courses`, `/assignments`, and `/settings`: placeholder pages for planned
+  features.
+- Unmatched URLs show a not-found page.
+
 ## Project structure
 
 - `src/components/`: reusable UI, calendar, task, and layout components.

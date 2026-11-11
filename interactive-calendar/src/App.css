@@ -20,6 +20,12 @@
   text-decoration: none;
 }
 
+.navigation {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.25rem;
+}
+
 .nav-link {
   border-bottom: 2px solid transparent;
   color: #52617a;

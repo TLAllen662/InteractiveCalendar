@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
+import { useOutletContext } from 'react-router-dom'
 import CalendarGrid from '../components/CalendarGrid.jsx'
 import Card from '../components/Card.jsx'
 import TaskForm from '../components/TaskForm.jsx'
 import TaskList from '../components/TaskList.jsx'
-import { useTasks } from '../hooks/useTasks.js'
 import { formatDate, formatLongDate } from '../utils/dates.js'
 
 function CalendarPage() {
@@ -11,7 +11,7 @@ function CalendarPage() {
   const [today, setToday] = useState(() => formatDate(new Date()))
   const [editingTask, setEditingTask] = useState(null)
   const [actionError, setActionError] = useState('')
-  const { tasks, error, canEdit, updateTasks } = useTasks()
+  const { tasks, canEdit, updateTasks } = useOutletContext()
 
   useEffect(() => {
     const timer = window.setInterval(() => setToday(formatDate(new Date())), 60000)
@@ -60,7 +60,6 @@ function CalendarPage() {
         <h1>Your calendar</h1>
         <p>Keep track of classes, assignments, and everything in between.</p>
       </div>
-      {error && <p className="storage-error" role="alert">{error}</p>}
       {actionError && <p className="storage-error" role="alert">{actionError}</p>}
       <div className="calendar-layout">
         <CalendarGrid selectedDate={selectedDate} today={today} tasks={tasks} onSelectDate={selectDate} />
