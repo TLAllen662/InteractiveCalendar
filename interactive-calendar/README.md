@@ -17,6 +17,18 @@ For browser-based responsive checks, run `npx playwright install chromium` once,
 then `npm run test:responsive`. The checks cover mobile, tablet, and desktop
 viewport sizes.
 
+## Vercel deployment
+
+Set the Vercel project root directory to `interactive-calendar`, use the Vite
+framework preset, and build with `npm run build` (output directory: `dist`).
+The Vercel rewrite serves the SPA for direct route requests. Connect the GitHub
+repository in Vercel to deploy changes from the production branch automatically.
+
+To enable Google Calendar in production, add `VITE_GOOGLE_CLIENT_ID` in the
+Vercel project's environment variables, add the production origin to the Google
+OAuth client's authorized JavaScript origins, and redeploy. Do not configure an
+OAuth client secret in Vercel's client-side environment variables.
+
 ## Using the calendar
 
 Choose a day to view its tasks. Add tasks with a date, mark them complete, edit
