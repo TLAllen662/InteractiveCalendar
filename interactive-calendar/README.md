@@ -10,7 +10,7 @@ npm run dev
 ```
 
 Run `npm run build` for a production build, `npm run lint` to check the code,
-and `npm test` for the utility tests.
+and `npm test` for the utility and interaction tests.
 
 ## Using the calendar
 

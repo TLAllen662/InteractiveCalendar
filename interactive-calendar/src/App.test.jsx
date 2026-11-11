@@ -61,6 +61,25 @@ describe('calendar tasks', () => {
     expect(screen.getByLabelText('Upcoming exam')).toBeTruthy()
   })
 
+  it('moves an edited task to its new date and respects a canceled deletion', async () => {
+    const user = userEvent.setup()
+    renderApp()
+    await user.type(screen.getByLabelText('Task'), 'Lab report')
+    await user.click(screen.getByRole('button', { name: 'Add task' }))
+    await user.click(screen.getByRole('button', { name: 'Edit Lab report' }))
+    await user.clear(screen.getByLabelText('Date'))
+    await user.type(screen.getByLabelText('Date'), '2024-02-29')
+    await user.click(screen.getByRole('button', { name: 'Save changes' }))
+    const month = new Intl.DateTimeFormat(undefined, { month: 'long', year: 'numeric' }).format(new Date(2024, 1, 1))
+    expect(screen.getByText(month)).toBeTruthy()
+    expect(screen.getByLabelText('Lab report')).toBeTruthy()
+    expect(JSON.parse(localStorage.getItem(TASKS_KEY))[0].date).toBe('2024-02-29')
+
+    vi.spyOn(window, 'confirm').mockReturnValue(false)
+    await user.click(screen.getByRole('button', { name: 'Delete Lab report' }))
+    expect(screen.getByLabelText('Lab report')).toBeTruthy()
+  })
+
   it('protects invalid saved data and reports failed writes', async () => {
     localStorage.setItem(TASKS_KEY, '{bad data')
     const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {})
