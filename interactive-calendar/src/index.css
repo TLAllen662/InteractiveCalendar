@@ -20,7 +20,9 @@ a {
   color: #3156a0;
 }
 
-a:focus-visible {
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
   outline: 2px solid #3156a0;
   outline-offset: 3px;
 }

@@ -1,11 +1,10 @@
-import { Link, Outlet } from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
+import Header from './Header.jsx'
 
 function Layout() {
   return (
     <>
-      <header className="site-header">
-        <Link className="brand" to="/">Interactive Calendar</Link>
-      </header>
+      <Header />
       <main className="page">
         <Outlet />
       </main>

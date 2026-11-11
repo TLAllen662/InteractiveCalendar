@@ -1,6 +1,17 @@
 .site-header {
   border-bottom: 1px solid #dce2ed;
-  padding: 1.25rem max(1.5rem, calc((100% - 64rem) / 2));
+  background: #fff;
+}
+
+.header-content {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 2rem;
+  justify-content: space-between;
+  margin: 0 auto;
+  max-width: 72rem;
+  padding: 1.25rem 1.5rem;
 }
 
 .brand {
@@ -9,26 +20,262 @@
   text-decoration: none;
 }
 
+.nav-link {
+  border-bottom: 2px solid transparent;
+  color: #52617a;
+  padding: 0.4rem 0;
+  text-decoration: none;
+}
+
+.nav-link.active {
+  border-color: #3156a0;
+  color: #23365c;
+  font-weight: 600;
+}
+
 .page {
   box-sizing: border-box;
   margin: 0 auto;
-  max-width: 64rem;
-  padding: 5rem 1.5rem;
+  max-width: 72rem;
+  padding: 3rem 1.5rem 5rem;
 }
 
-.page section {
-  max-width: 40rem;
+.page-intro {
+  margin-bottom: 2rem;
+}
+
+.page-intro h1 {
+  margin: 0.35rem 0;
+}
+
+.page-intro p,
+.selected-date {
+  color: #52617a;
 }
 
 .eyebrow {
   color: #435d9e;
-  font-size: 0.875rem;
+  font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.08em;
+  margin: 0;
   text-transform: uppercase;
 }
 
-.notice {
+.calendar-layout {
+  align-items: start;
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: minmax(0, 1.5fr) minmax(17rem, 1fr);
+}
+
+.card {
+  background: #fff;
+  border: 1px solid #dce2ed;
+  border-radius: 0.75rem;
+  min-width: 0;
+  padding: 1.25rem;
+}
+
+.calendar-heading {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.calendar-heading h2,
+.tasks-card h2 {
+  margin: 0.2rem 0;
+}
+
+.calendar-controls,
+.form-actions,
+.task-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.button {
+  border: 1px solid transparent;
+  border-radius: 0.4rem;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 600;
+  min-height: 2.5rem;
+  padding: 0.4rem 0.8rem;
+}
+
+.button-primary {
+  background: #3156a0;
+  color: #fff;
+}
+
+.button-secondary {
+  background: #fff;
+  border-color: #c9d2e0;
+  color: #23365c;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.calendar-grid {
+  display: grid;
+  gap: 0.35rem;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+
+.weekday {
   color: #52617a;
-  margin-top: 2rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.5rem 0;
+  text-align: center;
+}
+
+.calendar-day {
+  align-items: flex-start;
+  background: #f7f9fc;
+  border: 1px solid #e4e9f1;
+  border-radius: 0.4rem;
+  color: #23365c;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  font: inherit;
+  gap: 0.25rem;
+  min-height: 4.5rem;
+  padding: 0.5rem;
+}
+
+.calendar-day.today {
+  border-color: #3156a0;
+}
+
+.calendar-day.selected {
+  background: #e8efff;
+  box-shadow: inset 0 0 0 2px #3156a0;
+}
+
+.task-count {
+  background: #3156a0;
+  border-radius: 1rem;
+  color: #fff;
+  font-size: 0.7rem;
+  min-width: 1rem;
+  padding: 0 0.2rem;
+  text-align: center;
+}
+
+.selected-date {
+  margin: 0 0 1.25rem;
+}
+
+.task-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.task-item {
+  border-top: 1px solid #e4e9f1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: space-between;
+  padding: 0.75rem 0;
+}
+
+.task-label {
+  align-items: baseline;
+  display: flex;
+  gap: 0.5rem;
+  overflow-wrap: anywhere;
+}
+
+.completed {
+  color: #52617a;
+  text-decoration: line-through;
+}
+
+.text-button {
+  background: none;
+  border: 0;
+  color: #3156a0;
+  cursor: pointer;
+  font: inherit;
+  padding: 0.2rem;
+}
+
+.empty-state {
+  color: #52617a;
+}
+
+.task-form {
+  border-top: 1px solid #e4e9f1;
+  display: grid;
+  gap: 0.5rem;
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+}
+
+.task-form h3 {
+  margin: 0 0 0.5rem;
+}
+
+.task-form input {
+  border: 1px solid #b9c5d6;
+  border-radius: 0.4rem;
+  box-sizing: border-box;
+  color: inherit;
+  font: inherit;
+  min-width: 0;
+  padding: 0.6rem;
+  width: 100%;
+}
+
+.form-actions {
+  margin-top: 0.5rem;
+}
+
+.error,
+.storage-error {
+  color: #9b1c1c;
+}
+
+.storage-error {
+  background: #fff0ef;
+  border: 1px solid #eeb9b5;
+  border-radius: 0.4rem;
+  padding: 0.75rem;
+}
+
+@media (max-width: 760px) {
+  .calendar-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 420px) {
+  .page {
+    padding-inline: 1rem;
+  }
+
+  .card {
+    padding: 0.75rem;
+  }
+
+  .calendar-grid {
+    gap: 0.2rem;
+  }
+
+  .calendar-day {
+    min-height: 3.5rem;
+    padding: 0.3rem;
+  }
 }
