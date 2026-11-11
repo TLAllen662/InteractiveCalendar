@@ -62,9 +62,13 @@ verification before a public release.
 - `src/pages/`: route-level pages that compose components.
 - `src/hooks/`: reusable stateful behavior.
 - `src/services/`: external API and authorization services.
-- `src/contexts/`: shared React contexts, when needed.
+- `src/contexts/`: shared task state and its provider.
 - `src/utils/`: date and local-storage utilities.
 
 React Router handles client-side navigation. The app uses plain CSS and the
 browser's `fetch` API. Deployments must serve `index.html` for client-side
 routes.
+
+Tasks and storage errors are shared through `TaskProvider` across routes.
+Calendar selection, form inputs, and Google Calendar connection state remain
+local to their components; data is passed to reusable UI through props.

@@ -1,16 +1,16 @@
 import { Outlet } from 'react-router-dom'
-import { useTasks } from '../hooks/useTasks.js'
+import { useTaskContext } from '../contexts/TaskContext.js'
 import Header from './Header.jsx'
 
 function Layout() {
-  const taskState = useTasks()
+  const { error } = useTaskContext()
 
   return (
     <>
       <Header />
       <main className="page">
-        {taskState.error && <p className="storage-error" role="alert">{taskState.error}</p>}
-        <Outlet context={taskState} />
+        {error && <p className="storage-error" role="alert">{error}</p>}
+        <Outlet />
       </main>
     </>
   )

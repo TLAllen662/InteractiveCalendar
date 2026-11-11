@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
-import { useOutletContext } from 'react-router-dom'
 import CalendarGrid from '../components/CalendarGrid.jsx'
 import Card from '../components/Card.jsx'
 import GoogleCalendarEvents from '../components/GoogleCalendarEvents.jsx'
 import TaskForm from '../components/TaskForm.jsx'
 import TaskList from '../components/TaskList.jsx'
+import { useTaskContext } from '../contexts/TaskContext.js'
 import { formatDate, formatLongDate } from '../utils/dates.js'
 
 function CalendarPage() {
@@ -12,7 +12,7 @@ function CalendarPage() {
   const [today, setToday] = useState(() => formatDate(new Date()))
   const [editingTask, setEditingTask] = useState(null)
   const [actionError, setActionError] = useState('')
-  const { tasks, canEdit, updateTasks } = useOutletContext()
+  const { tasks, canEdit, updateTasks } = useTaskContext()
 
   useEffect(() => {
     const timer = window.setInterval(() => setToday(formatDate(new Date())), 60000)

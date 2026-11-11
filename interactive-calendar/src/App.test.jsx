@@ -3,6 +3,10 @@ import { cleanup, render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { MemoryRouter } from 'react-router-dom'
 import App from './App.jsx'
+import TaskProvider from './contexts/TaskProvider.jsx'
+import { useTaskContext } from './contexts/TaskContext.js'
+import CalendarPage from './pages/CalendarPage.jsx'
+import { formatDate } from './utils/dates.js'
 import { TASKS_KEY } from './utils/taskStorage.js'
 
 function renderApp(path = '/') {
@@ -16,6 +20,34 @@ beforeEach(() => {
 afterEach(() => {
   cleanup()
   vi.restoreAllMocks()
+})
+
+describe('shared task context', () => {
+  it('updates independent consumers without mutating previous task state', async () => {
+    localStorage.setItem(TASKS_KEY, JSON.stringify([
+      { id: 'one', title: 'Study', date: formatDate(new Date()), completed: false },
+    ]))
+    let previousTasks
+
+    function Summary() {
+      const { tasks } = useTaskContext()
+      return (
+        <>
+          <button type="button" onClick={() => { previousTasks = tasks }}>Capture tasks</button>
+          <p>{tasks[0].completed ? 'Task complete' : 'Task incomplete'}</p>
+        </>
+      )
+    }
+
+    const user = userEvent.setup()
+    render(<TaskProvider><CalendarPage /><Summary /></TaskProvider>)
+    expect(screen.getByText('Task incomplete')).toBeTruthy()
+    await user.click(screen.getByRole('button', { name: 'Capture tasks' }))
+    await user.click(screen.getByLabelText('Study'))
+    expect(screen.getByText('Task complete')).toBeTruthy()
+    expect(previousTasks[0].completed).toBe(false)
+    expect(JSON.parse(localStorage.getItem(TASKS_KEY))[0].completed).toBe(true)
+  })
 })
 
 describe('calendar tasks', () => {
