@@ -4,6 +4,7 @@ The React application is in [`interactive-calendar/`](./interactive-calendar/).
 
 ```sh
 cd interactive-calendar
+npm install
 npm run dev
 ```
 

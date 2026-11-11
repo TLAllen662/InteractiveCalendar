@@ -1,16 +1,24 @@
-# React + Vite
+# Interactive Calendar
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A React and Vite starter for an interactive calendar for college students.
+Calendar features have not yet been implemented.
 
-Currently, two official plugins are available:
+## Development
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+```sh
+npm install
+npm run dev
+```
 
-## React Compiler
+Run `npm run build` for a production build and `npm run lint` to check the code.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Project structure
 
-## Expanding the Oxlint configuration
+- `src/components/`: reusable UI and application layout.
+- `src/pages/`: route-level pages.
+- `src/contexts/`: shared React contexts, when needed.
+- `src/utils/`: shared utility functions, when needed.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+React Router handles client-side navigation. The app uses plain CSS and does not
+yet require a UI library or API client; add those when their requirements are
+known. Deployments must serve `index.html` for client-side routes.
