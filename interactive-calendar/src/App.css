@@ -254,6 +254,34 @@ button:disabled {
   color: #9b1c1c;
 }
 
+.google-events {
+  margin-top: 1.25rem;
+}
+
+.google-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.google-note {
+  color: #52617a;
+  font-size: 0.875rem;
+}
+
+.google-event-list {
+  list-style: none;
+  padding: 0;
+}
+
+.google-event-list li {
+  border-top: 1px solid #e4e9f1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.75rem 0;
+}
+
 .storage-error {
   background: #fff0ef;
   border: 1px solid #eeb9b5;

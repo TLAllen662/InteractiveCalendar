@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useOutletContext } from 'react-router-dom'
 import CalendarGrid from '../components/CalendarGrid.jsx'
 import Card from '../components/Card.jsx'
+import GoogleCalendarEvents from '../components/GoogleCalendarEvents.jsx'
 import TaskForm from '../components/TaskForm.jsx'
 import TaskList from '../components/TaskList.jsx'
 import { formatDate, formatLongDate } from '../utils/dates.js'
@@ -70,6 +71,7 @@ function CalendarPage() {
           {canEdit && <TaskForm key={`${selectedDate}-${editingTask?.id ?? 'new'}`} selectedDate={selectedDate} task={editingTask} onSave={saveTask} onCancel={() => setEditingTask(null)} />}
         </Card>
       </div>
+      <GoogleCalendarEvents selectedDate={selectedDate} />
     </>
   )
 }
